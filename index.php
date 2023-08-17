@@ -24,7 +24,8 @@ td, th {
 // $username = "root";
 // $password = "";
 // $dbname = "likebarb_er";
-$a = 1;
+    $search = $_GET["search"];
+   
 
 // Create connection
 $conn = new mysqli("localhost", "root", "","likebarb_er");
@@ -32,8 +33,8 @@ $conn = new mysqli("localhost", "root", "","likebarb_er");
 if ($conn->connect_error) {
   die("Connection failed: " . $conn->connect_error);
 }
-$sql = "SELECT fullname, email,password,phone FROM users";
-$result = $conn->query($sql);
+$sql = "SELECT fullname, email,password,phone FROM users  WHERE phone='$search'";//ประกาศคิวรี่เฉยๆ 
+$result = $conn->query($sql);//เรียกให้คิวรี่ทำงาน
 
 if ($result->num_rows > 0) {
     echo '<table>';
@@ -61,9 +62,13 @@ if ($result->num_rows > 0) {
   echo "0 results";
 }
 $conn->close();
-
-
+echo '<form action="index.php" method="get">';
+echo '<input type="text" name="search">';
+echo '<button type="submit">submit</button>';
+echo '<p>'.$search.'</p>';
+echo '</form>';
 ?>
-    
+   
+
 </body>
 </html>
