@@ -24,14 +24,24 @@
     echo "Connected successfully";
 
 
-$sql = "SELECT email, password  FROM users WHERE email='$email'";
-$result = $conn->query($sql);
+$sql = "SELECT email, password  FROM users WHERE email='$email' and password ='$pass'";
+$result = mysqli_query($conn, $sql);//$result จะได้เปนตัวเลขกลับมาเสมอ 
+    // echo 'ghg'.$result;
     echo '<form action="signin.php" method="post">';
     echo '<input type="email" name="email" >';
     echo '<input type="password" name="password" >';
     echo '<button type="submit">submit</button>';
       
     echo '</form>';
+    if ( (mysqli_num_rows($result) > 0)) {
+        # code...
+         header("Location: index.php");
+ exit();
+    } else {
+        # code...
+        echo 'อีเมลของคุณไม่ถูก';
+    }
+    
 $conn->close();
    ?> 
 </body>
